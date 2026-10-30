@@ -2,4 +2,41 @@
 title: "Proposal"
 ---
 
-Your proposal go here.
+# Legislation and LGBTQ+ Populations in the 2026 U.S. Midterms
+
+By Dhara, Julia, and Allie
+
+a short description of the project 
+> We will use 2026 midterm election data (states and cities/metro areas) and data on estimates of LGBTQ+ populations in US states and cities to evaluate the correlation between anti-LGBTQ+ legislation and LGBTQ+ populations.
+
+2-3 broad research questions the team is interested in exploring the
+reasons/inspirations behind choosing the topic
+> Does proportionality of LGBTQ populations by state correlate to whether anti-LGBTQ+ legislation is passed?
+
+> Does proportionality of trans populations by state affect the presence of anti-trans legislation?
+
+one potential data set that can be used to answer the research questions
+
+> https://williamsinstitute.law.ucla.edu/publications/lgbt-us-msa/
+> https://williamsinstitute.law.ucla.edu/publications/trans-adults-united-states/
+> https://ballotpedia.org/Ballot_measures_related_to_sex-based_sports_eligibility_and_medical_proc\>edures_for_transgender_minors,\_2026
+> https://www.aclu.org/legislative-attacks-on-lgbtq-rights-2026
+> https://www.headcount.org/ballot-initiatives/2026-lgbtq-ballot-measures-final
+
+communication plan, ie, primary communication channel (eg, Google Chat, Slack, Email), expected response time (eg, 24 hours during the week), meeting time (eg, “we will meet 7-8pm every Wednesday”)
+> We will communicate via text message. Our expected response time will be within 24 hours. We will meet 11:30-12:30 every Tuesday.
+
+roles–everyone is expected to contribute to the project but having leads helps with accountability. In particular, determine (1) point of contact–the main person to email the instructor/preceptors, (2) technical lead–the person who will oversee the code base and website, (3) style lead–the person who will make sure the code is following the COMP/STAT 112/212: Code Styling Guide
+> Allie will be the point of contact. Julia will be the technical lead. Dhara will be the style lead.
+
+conflict resolution, ie, if a team member misses a deadline, how will the team handle it? How will you make decisions if the team is split 50/50 on a something?
+> Update consistently through group chat, if something comes up communicate ahead of time!
+
+a rough implementation plan, ie, list of tasks with due date and roles–refer to the list of deliverables when building your list. The plan should be added as GitHub Issues within the project repository–see the callout box below for details.
+> PM 1 (Proposal, GROUP) - Due Fri, 10/30
+> PM 2 (Research about effective teamwork, INDIVIDUAL) - Due Fri, 11/6
+> PM 3 (Case study, GROUP) - Due Fri, 11/13
+> PM 4 (EDA, INDIVIDUAL) - Due Fri, 11/20
+> PM 5 (Progress Report, GROUP) - Due right after Thanksgiving break, Mon, 11/30
+> PM 6 (Initial Presentations, GROUP) - Wednesday, 12/9
+> PM 7 (Deliverables + Evaluation, push code, GROUP) - Monday, 12/14
