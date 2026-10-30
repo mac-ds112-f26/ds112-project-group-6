@@ -24,15 +24,19 @@ one potential data set that can be used to answer the research questions
 > https://www.headcount.org/ballot-initiatives/2026-lgbtq-ballot-measures-final
 
 communication plan, ie, primary communication channel (eg, Google Chat, Slack, Email), expected response time (eg, 24 hours during the week), meeting time (eg, “we will meet 7-8pm every Wednesday”)
+
 > We will communicate via text message. Our expected response time will be within 24 hours. We will meet 11:30-12:30 every Tuesday.
 
 roles–everyone is expected to contribute to the project but having leads helps with accountability. In particular, determine (1) point of contact–the main person to email the instructor/preceptors, (2) technical lead–the person who will oversee the code base and website, (3) style lead–the person who will make sure the code is following the COMP/STAT 112/212: Code Styling Guide
+
 > Allie will be the point of contact. Julia will be the technical lead. Dhara will be the style lead.
 
 conflict resolution, ie, if a team member misses a deadline, how will the team handle it? How will you make decisions if the team is split 50/50 on a something?
+
 > Update consistently through group chat, if something comes up communicate ahead of time!
 
 a rough implementation plan, ie, list of tasks with due date and roles–refer to the list of deliverables when building your list. The plan should be added as GitHub Issues within the project repository–see the callout box below for details.
+
 > PM 1 (Proposal, GROUP) - Due Fri, 10/30
 > PM 2 (Research about effective teamwork, INDIVIDUAL) - Due Fri, 11/6
 > PM 3 (Case study, GROUP) - Due Fri, 11/13
