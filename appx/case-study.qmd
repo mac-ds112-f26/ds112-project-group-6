@@ -2,4 +2,14 @@
 title: "Case Study"
 ---
 
-Your case study go here.
+https://pudding.cool/2020/07/gendered-descriptions/
+
+What do we like?
+*Provocative title that catches the eye. 
+*It’s written as a story; there is a specific order that readers need to view this.
+*Interactive element of guessing which gender certain passages are referring too.
+*Illustrations and artistic bent to the data structure.
+*User-directed viewing, the viewer can hover over graphs to find more information/ change the graph to find   more information. 
+*Animation/movement to give the viz more life.
+*Discussion of the end of how the data is used.
+
