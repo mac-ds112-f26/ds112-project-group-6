@@ -1,5 +1,19 @@
 ---
-title: "Member 3 First Name & Last Name Initial"
+title: "Member 3 Dhara G."
 ---
 
 Your exploratory data analysis of the team datasets go here.
+```{r}
+library(tidyverse)
+trans_pop <-read.csv("williams_institute_transgender_population_estimates_aug2025.csv")
+midterms_outcomes <-read.csv("2026_ballot_measures_contributions.csv")
+```
+
+```{r}
+trans_pop |>
+  filter(State_or_Region %in% c("Arizona", "Colorado", "Missouri", "Nebraska", "Washington")) |>
+  ggplot(aes(x = State_or_Region, y = Total_13Plus_Count)) +
+  geom_point()+ 
+  labs(x = "States with Anti Trans Legislation Midterms 2026", y = "Trans Population Over 13 Years of Age")
+```
+

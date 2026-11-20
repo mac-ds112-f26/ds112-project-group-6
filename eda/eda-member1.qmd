@@ -1,5 +1,168 @@
 ---
-title: "Member 1 First Name & Last Name Initial"
+title: "Member 1 Allie D."
 ---
 
 Your exploratory data analysis of the team datasets go here.
+```{r}
+library(tidyverse)
+
+legislation_data <- read_csv("C:/Users/allie/STAT 112/ds112-project-group-6/data/raw/legislation-tracker_2026-11-17_12-41.csv")
+```
+
+#Milestone 4: EDA
+- A short (\~2 sentence) written description of your data. This should include: 
+  - the original data source, ie, where did TidyTuesday get the data from?
+  - units of observation, ie, what are you analyzing?, and 
+  - the data size, ie, how many data points do you have? how many variables are measured on each data point?.
+
+::: {.callout-note title="Answer"}
+
+This data is from the ACLU, tracking anti-LGBTQ legislation on the ballot in the 2026 midterms. The units of observation are individual bills. There are 532 bills and 7 information variables for each.
+
+:::
+
+In the 3 sections below (Viz 1, 2, 3), construct 3 separate graphs that tell a *connected* story about the data you chose.  
+
+**Before each viz:**
+
+-   write a simple but specific research question you're trying to address with the viz.
+-   write a 2-4 sentence summary of what you learn from the viz. This should connect back to your research question!
+
+**After each viz:**
+
+-   Comment on at least 2 effective aspects of the viz (consider the effective visualization principles).
+-   Comment on at least 2 aspects of the visualization that could be improved. Perhaps these are aspects that you don't know how to implement yet but wish you could update it.
+
+**Make sure each viz:**
+
+-   has meaningful axis labels and legend titles
+-   has a figure caption (fig.cap)
+-   uses alt text (fig.alt)
+-   uses a more color-blind friendly color palette
+
+
+**Tips:**
+
+-   Start with some questions in mind of what you want to learn.
+-   Start with a simple viz (viz 1), and build this up into something multivariate (viz 3).
+-   Reflect on each viz -- what new questions do you have after checking out the viz? Let these questions guide your next viz.
+
+
+### Viz 1
+
+::: {.callout-note title="Research Question"}
+
+How many anti-LGBTQ bills were there on the ballot per state in 2026?
+
+:::
+
+```{r}
+bills_by_state <- legislation_data %>%
+  rename(state = State) %>%
+  group_by(state) %>%
+  summarise(bill_count = n(), .groups = "drop") %>%
+  arrange(desc(bill_count))
+ggplot(bills_by_state, aes(x = reorder(state, bill_count), y = bill_count)) +
+  geom_col(fill = "#1f78b4") +
+  geom_text(aes(label = bill_count), hjust = -0.2, size = 3) +
+  coord_flip() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    title = "2026 Anti-LGBTQ+ Bills Tracked by State",
+    subtitle = "Source: ACLU Legislative Tracker",
+    x = NULL,
+    y = "Number of Bills"
+  ) +
+  theme_minimal()
+```
+
+
+::: {.callout-note title="Summary"}
+
+Could be separated by which ones have been passed and which ones haven't, maybe make it top 10 states instead of all.
+
+:::
+
+### Viz 2
+
+::: {.callout-note title="Research Question"}
+
+What are the top 10 states with the most anti-LGBTQ legislation on the ballot in 2026?
+
+:::
+
+```{r}
+bills_by_state <- legislation_data %>%
+  rename(state = State) %>%
+  group_by(state) %>%
+  summarise(bill_count = n(), .groups = "drop") %>%
+  arrange(desc(bill_count))  %>%
+  slice_head(n = 10)
+ggplot(bills_by_state, aes(x = reorder(state, bill_count), y = bill_count)) +
+  geom_col(fill = "#1f78b4") +
+  geom_text(aes(label = bill_count), hjust = -0.2, size = 3) +
+  coord_flip() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    title = "Top 10 States by 2026 Anti-LGBTQ+ Bills Tracked",
+    subtitle = "Source: ACLU Legislative Tracker",
+    x = NULL,
+    y = "Number of Bills"
+  ) +
+  theme_minimal()
+```
+
+::: {.callout-note title="Summary"}
+
+This graph shows how Oklahoma leads in the most anti-LGBTQ legislation, followed by West Virginia, Missouri, and more. Minnesota is also on this list, which was surprising for me.
+
+:::
+
+### Viz 3
+
+::: {.callout-note title="Research Question"}
+
+What does anti-LGBTQ legislation for 2026 look like on a map?
+
+:::
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(usmap)
+
+bills_by_state <- legislation_data %>%
+  rename(state = State) %>%
+  group_by(state) %>%
+  summarise(bill_count = n(), .groups = "drop")
+
+plot_usmap(data = bills_by_state, values = "bill_count", color = "white", linewidth = 0.3) +
+  scale_fill_gradient(
+    low = "#deebf7",
+    high = "#08519c",
+    na.value = "grey92",
+    name = "Number of Bills"
+  ) +
+  labs(
+    title = "2026 Anti-LGBTQ+ Bills Tracked by State",
+    subtitle = "Source: ACLU Legislative Tracker"
+  ) +
+  theme(
+    legend.position = "right",
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(color = "grey30")
+  )
+```
+::: {.callout-note title="Summary"}
+
+This map visualizes the same data from viz one, but it is much more effective because it shows the amount of bills in a shaded choropleth. It is much easier to see the data this way.
+
+:::
+
+### Next Steps
+
+::: {.callout-note title="Summary"}
+
+I would like to join this data with a proportional symbol map of concentrations of LGBTQ peoples in the U.S.
+
+:::
