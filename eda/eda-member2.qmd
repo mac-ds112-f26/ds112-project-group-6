@@ -1,5 +1,126 @@
 ---
-title: "Member 2 First Name & Last Name Initial"
+title: Julia B
 ---
 
 Your exploratory data analysis of the team datasets go here.
+
+```{r}
+
+library(tidyverse)
+library(usmap)
+library(ggrepel)
+library(gt)
+library(patchwork)
+
+
+df <- read_csv("2026_ballot_measures_results.csv")
+
+
+map_data <- df %>%
+  mutate(
+    Yes_Pct_Num = as.numeric(str_remove(Yes_Percentage, "%")),
+    state = tolower(State),
+    Measure_Line = paste0(
+      Measure, ": ", Yes_Percentage, " Yes (", scales::comma(Yes_Votes), ") | ",
+      No_Percentage, " No (", scales::comma(No_Votes), ")"
+    )
+  ) %>%
+  group_by(state, State) %>%
+  summarize(
+    Avg_Yes_Pct = mean(Yes_Pct_Num, na.rm = TRUE),
+    Full_Label = paste0(first(State), "\n", paste(Measure_Line, collapse = "\n")),
+    .groups = "drop"
+  )
+
+
+state_coords <- us_map() %>%
+  inner_join(map_data, by = c("full" = "state")) %>%
+  mutate(centroid = sf::st_centroid(geom)) %>%
+  mutate(
+    x = sf::st_coordinates(centroid)[, 1],
+    y = sf::st_coordinates(centroid)[, 2]
+  ) %>%
+  sf::st_drop_geometry()
+
+
+p_map <- plot_usmap(data = map_data, values = "Avg_Yes_Pct", color = "white", linewidth = 0.5) +
+  scale_fill_gradient(
+    low = "#9ecae1", 
+    high = "#08519c", 
+    na.value = "#f2f2f2",
+    name = "Yes Vote (%)"
+  ) +
+  geom_label_repel(
+    data = state_coords,
+    aes(x = x, y = y, label = Full_Label),
+    size = 2.6,
+    fontface = "bold",
+    fill = alpha("white", 0.9),
+    box.padding = 0.6,
+    point.padding = 0.3,
+    min.segment.length = 0,
+    segment.color = "gray30",
+    max.overlaps = Inf
+  ) +
+  labs(
+    title = "2026 State Ballot Measure Results",
+    subtitle = "All measures, vote totals, and percentages displayed by state"
+  ) +
+  theme(
+    legend.position = "right",
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 11, color = "gray30")
+  )
+
+
+p_table <- df %>%
+  mutate(
+    Yes_Votes = scales::comma(Yes_Votes),
+    No_Votes = scales::comma(No_Votes)
+  ) %>%
+  gt() %>%
+  tab_header(
+    title = md("**Complete 2026 Ballot Measure Details**"),
+    subtitle = "Includes descriptions, reporting percentages, and last updated timestamps"
+  ) %>%
+  cols_label(
+    State = "State",
+    Measure = "Measure",
+    Description = "Description",
+    Yes_Votes = "Yes Votes",
+    Yes_Percentage = "Yes %",
+    No_Votes = "No Votes",
+    No_Percentage = "No %",
+    Reporting_Percentage = "Reporting",
+    Last_Updated = "Last Updated"
+  ) %>%
+  cols_width(
+    Description ~ px(320),
+    Last_Updated ~ px(140)
+  ) %>%
+  tab_options(
+    table.font.size = px(11),
+    data_row.padding = px(4)
+  )
+
+
+print(p_map)
+print(p_table)
+
+```
+
+
+
+#In Vermont, the bill was to guarantee equal treatment regardless of gender, sexual orientation, race, religion, ethnicity, and national origin, and the majority of voters voted Yes on the bill, which is not surprising since Vermont is a blue state. 
+
+#In Virginia, which was a swing state in the 2024 election but was blue in 2026, the majority of voters voted Yes on a bill that declared that two adults can't be denied marriage regardless of their gender or race. However, it was a closer vote than the one one in Vermont; the vote being 57.6% of votes counting towards yes and 42.4% of votes counting towards no. 
+ 
+#In Wisconsin, which voted red in the 2024 election, the majority of voters voted yes on a Bill that would prohibit governmental entities, public schools, and higher education from discriminating or giving preferential treatment on the basis of sex, race, ethnicity or national origin. The vote here was also closer than the vote in Vermont. 
+
+#In Colorado, which was a blue state in 2024, the majority of voters voted yes on a ballot measure that would prohibit anyone with a male reproductive system from taking part in female athletic teams at school. The majority of voters also voted yes on another bill, which would prohibit sex altering surgeries for transgender minors. This bill would also prohibit state funding for these surgeries. 
+
+#In Arizona, which was a red state in 2024, the majority of voters voted yes on expanding an existing prohibition on male athletes participating on female school sports teams; it would add restrictions on locker rooms and define an individual's sex as what was listed on their original birth certificate. 
+
+#In Washington State, which was a blue state in 2024, the majority of voters voted yes on a ballot measure that would prohibit those who are biologically male from competing in school sports that are reserved for females and it would also require students to provide a signed statement from a healthcare provider that verifies their biological sex based on reproductive anatomy, genetic makeup or natural testosterone levels.  
+
+
